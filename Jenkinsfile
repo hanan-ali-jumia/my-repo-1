@@ -5,6 +5,7 @@ pipeline {
         stage('Build') {
             steps {
                 echo 'Building.......'
+            
             }
         }
         stage('Test') {
@@ -18,4 +19,15 @@ pipeline {
             }
         }
     }
+    
+    post{
+    
+        always{
+        
+        echo 'done .....'
+        }
+    
+    }
+    
+    
 }
