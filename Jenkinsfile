@@ -2,7 +2,12 @@ pipeline {
     agent any
     environment{
     NEW_VER='1.3.4'
-    
+
+        parameters{
+        choice(name:'version',choices['1.0','2.0'])
+        
+        
+        }
     }
 
     stages {
@@ -29,6 +34,7 @@ pipeline {
             steps {
                 echo 'Deploying....'
                 echo "new version is ${NEW_VER}"
+                echo "user selected version ${params.version}"
             }
         }
     }
