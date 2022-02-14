@@ -2,13 +2,12 @@ pipeline {
     agent any
     environment{
     NEW_VER='1.3.4'
-
-        parameters{
-        choice(name:'version',choices['1.0','2.0'])
-        
-        
-        }
     }
+    
+    parameters{
+        choice(name:'version',choices['1.0','2.0'])
+            
+        }
 
     stages {
         stage('Build') {
