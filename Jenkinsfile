@@ -3,6 +3,12 @@ pipeline {
 
     stages {
         stage('Build') {
+            when{
+            
+                expression{ env.BRANCH_NAME=='main' }
+
+            }
+                        
             steps {
                 echo 'Building.......'
             
