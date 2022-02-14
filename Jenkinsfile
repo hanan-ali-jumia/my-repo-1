@@ -5,7 +5,7 @@ pipeline {
     }
     
     parameters{
-        choice(name:'version',choices['1.0','2.0'])
+        choice(name:'version',choices:['1.0','2.0'],description:'some desc')
             
         }
 
