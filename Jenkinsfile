@@ -1,62 +1,44 @@
+def gv
+
 pipeline {
     agent any
-    environment{
-    NEW_VER='1.3.4'
+    parameters {
+        choice(name: 'VERSION', choices: ['1.1.0', '1.2.0', '1.3.0'], description: '')
+        booleanParam(name: 'executeTests', defaultValue: true, description: '')
     }
-    
-    parameters{
-        choice(name:'version',choices:['1.0','2.0'],description:'some desc')
-            
-        }
-
     stages {
-        stage('Build') {
-            when{
-            
-                expression{ env.BRANCH_NAME=='main' }
-
-            }
-                        
+        stage("init") {
             steps {
-                echo 'Building.......'
-            
+                script {
+                   gv = load "script.groovy" 
+                }
             }
         }
-        stage('Test') {
-            
+        stage("build") {
             steps {
-                echo 'Testing..'
-                echo env.BRANCH_NAME
+                script {
+                    gv.buildApp()
+                }
             }
         }
-        stage('Deploy') {
+        stage("test") {
+            when {
+                expression {
+                    params.executeTests
+                }
+            }
             steps {
-                echo 'Deploying....'
-                echo "new version is ${NEW_VER}"
-                echo "user selected version ${params.version}"
+                script {
+                    gv.testApp()
+                }
             }
         }
-    }
-    
-    post{
-    
-        always{
-        
-        echo 'always .....'
+        stage("deploy") {
+            steps {
+                script {
+                    gv.deployApp()
+                }
+            }
         }
-    
-       success{
-        
-        echo 'success .....'
-        }
-        
-        failure{
-        
-        echo 'fail .....'
-        }
-    
-        
-    }
-    
-    
+    }   
 }
