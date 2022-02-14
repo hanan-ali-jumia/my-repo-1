@@ -24,9 +24,20 @@ pipeline {
     
         always{
         
-        echo 'done .....'
+        echo 'always .....'
         }
     
+       success{
+        
+        echo 'success .....'
+        }
+        
+        fail{
+        
+        echo 'fail .....'
+        }
+    
+        
     }
     
     
