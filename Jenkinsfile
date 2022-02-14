@@ -1,5 +1,9 @@
 pipeline {
     agent any
+    environment{
+    NEW_VER='1.3.4'
+    
+    }
 
     stages {
         stage('Build') {
@@ -24,6 +28,7 @@ pipeline {
         stage('Deploy') {
             steps {
                 echo 'Deploying....'
+                echo "new version is ${NEW_VER}"
             }
         }
     }
